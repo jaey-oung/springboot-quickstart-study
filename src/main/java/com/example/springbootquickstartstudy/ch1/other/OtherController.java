@@ -1,4 +1,4 @@
-package com.example.other;
+package com.example.springbootquickstartstudy.ch1.other;
 
 import org.springframework.stereotype.Controller;
 

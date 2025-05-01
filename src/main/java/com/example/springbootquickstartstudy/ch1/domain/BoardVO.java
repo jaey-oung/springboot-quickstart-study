@@ -1,4 +1,4 @@
-package com.example.springbootquickstartstudy.domain;
+package com.example.springbootquickstartstudy.ch1.domain;
 
 import lombok.Getter;
 import lombok.Setter;

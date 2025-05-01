@@ -1,9 +1,7 @@
-package com.example.springbootquickstartstudy.controller;
+package com.example.springbootquickstartstudy.ch1.controller;
 
-import com.example.springbootquickstartstudy.domain.BoardVO;
+import com.example.springbootquickstartstudy.ch1.domain.BoardVO;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;

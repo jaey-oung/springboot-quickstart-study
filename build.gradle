@@ -9,12 +9,14 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
+		// Java 21 버전 사용 설정
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
 repositories {
-	mavenCentra	l()
+	// 의존성 관리를 위한 중앙 저장소
+	mavenCentral()
 }
 
 dependencies {

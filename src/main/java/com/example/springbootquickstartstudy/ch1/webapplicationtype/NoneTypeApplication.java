@@ -1,4 +1,4 @@
-package com.example.springbootquickstartstudy.webapplicationtype;
+package com.example.springbootquickstartstudy.ch1.webapplicationtype;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;

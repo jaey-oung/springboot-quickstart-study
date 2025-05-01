@@ -4,39 +4,60 @@
 
 spring:
   application:
-    # 프로젝트 이름 설정 (로깅/모니터링 시 애플리케이션 이름으로 표시)
+    # 애플리케이션 이름 (로깅 및 모니터링용)
     name: springboot-quickstart-study
 
   main:
-    # 웹 애플리케이션 타입 설정
-    # - servlet: 스프링 MVC 기반 웹 서버(Tomcat)로 실행
-    # - reactive: 스프링 WebFlux 기반 비동기/논블로킹 리액티브 웹 서버로 실행
-    # - none: 웹 서버 없이 일반 자바 프로그램처럼 실행
+    # 실행할 웹 애플리케이션 타입
+    # servlet : Spring MVC (기본값, Tomcat 기반)
+    # reactive : Spring WebFlux (비동기/논블로킹)
+    # none : 웹 서버 없이 실행
     web-application-type: servlet
 
-    # 배너 출력 위치 설정
-    # - console: 콘솔 출력 (기본값)
-    # - log: 로거를 통해 출력
-    # - off: 출력 안 함
+    # 배너 출력 모드
+    # console : 콘솔에 출력 (기본값)
+    # log : 로거를 통해 출력
+    # off : 비활성화
     banner-mode: console
 
-  banner:
-    # 텍스트 배너 커스터마이징 경로
-    # location: banner/banner.txt
+    # 동일한 Bean 이름이 있을 경우 덮어쓰기 허용 여부
+    allow-bean-definition-overriding: true
 
+  banner:
+    # 커스텀 텍스트 배너 파일 경로
+    # location: ch1/banner/banner.txt
+
+    # 커스텀 이미지 배너 파일 경로
     # image:
-      # 이미지 배너 커스터마이징 경로
-      # location: banner/spring_boot.png
-      # 이미지 배너 출력 시 너비 설정
+      # location: ch1/banner/spring_boot.png
       # width: 80
-      # 이미지 배너 출력 시 높이 설정
       # height: 10
+
+# ========================================
+# 로깅 설정
+# ========================================
+
+logging:
+  level:
+    # 전체 애플리케이션 기본 로그 레벨
+    root: info
 
 # ========================================
 # 서버 설정
 # ========================================
 
 server:
-  # 내장 톰캣 서버 포트 번호 설정 (기본값: 8080)
-  # 포트를 0으로 설정하면 사용 가능한 포트 중 하나가 자동 할당
-  port: 8000
+  # 내장 톰캣 포트 (기본값 8080)
+  # 0으로 설정하면 사용 가능한 포트 자동 할당
+  port: 8080
+
+# ========================================
+# 데이터베이스 설정
+# ========================================
+
+board:
+  jdbc:
+    driverClass: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: JY
+    password: 4001

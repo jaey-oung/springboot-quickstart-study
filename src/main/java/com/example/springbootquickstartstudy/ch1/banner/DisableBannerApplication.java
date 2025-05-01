@@ -1,4 +1,4 @@
-package com.example.springbootquickstartstudy.banner;
+package com.example.springbootquickstartstudy.ch1.banner;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
