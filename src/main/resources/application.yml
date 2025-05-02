@@ -61,3 +61,10 @@ board:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: JY
     password: 4001
+
+# ========================================
+# 테스트용 프로퍼티
+# ========================================
+author:
+  name: YJY
+  age: 2626
