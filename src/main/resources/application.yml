@@ -42,6 +42,13 @@ logging:
     # 전체 애플리케이션 기본 로그 레벨
     root: info
 
+#    # com.example.springbootquickstartstudy 패키지 이하 로그 레벨
+#    com.example.springbootquickstartstudy: debug
+#
+#  file:
+#    # 로그 파일 경로 설정
+#    name: src/main/resources/ch3/logs/board_log.log
+
 # ========================================
 # 서버 설정
 # ========================================

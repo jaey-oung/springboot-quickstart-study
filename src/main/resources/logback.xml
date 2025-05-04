@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 파일로 로그를 남기는 설정 -->
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>src/main/resources/ch3/logs/board_log.log</file>
+
+        <!-- 로그 파일 롤링 정책 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 롤링 후 로그 파일 패턴 (일자별 gz 압축) -->
+            <fileNamePattern>
+                src/main/resources/ch3/logs/myboard.%d{yyyy-MM-dd}.log.gz
+            </fileNamePattern>
+            <!-- 최대 보관 기간 (30일 후 자동 삭제) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <!-- 로그 포맷 설정 -->
+        <encoder>
+            <pattern>
+                %d{yyyy:MM:dd HH:mm:ss.SSS} %-5level --- [%thread] %logger{35} : %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 콘솔에 로그를 출력하는 설정 -->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 로그 포맷 설정 -->
+        <encoder>
+            <pattern>
+                %d{yyyy:MM:dd HH:mm:ss.SSS} %-5level --- [%thread] %logger{35} : %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 애플리케이션 내 특정 패키지 로그 설정 -->
+    <logger name="com.example.springbootquickstartstudy" level="debug" additivity="false">
+        <!-- 콘솔과 파일 모두에 로그 출력 -->
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppender" />
+    </logger>
+
+    <!-- 전역 로그 레벨 설정 -->
+    <root level="info">
+        <appender-ref ref="consoleAppender" />
+    </root>
+
+</configuration>
