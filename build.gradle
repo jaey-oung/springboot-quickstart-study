@@ -9,24 +9,34 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		// Java 21 버전 사용 설정
+		// Java 21 버전으로 컴파일 설정
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
 repositories {
-	// 의존성 관리를 위한 중앙 저장소
+	// 라이브러리 의존성 관리를 위한 중앙 저장소
 	mavenCentral()
 }
 
 dependencies {
 	// ========================
-	// 핵심 의존성
+	// 웹 애플리케이션
 	// ========================
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// ========================
-	// Lombok (컴파일 및 테스트)
+	// JPA
+	// ========================
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// ========================
+	// 데이터베이스 (H2)
+	// ========================
+	implementation 'com.h2database:h2'
+
+	// ========================
+	// Lombok
 	// ========================
 	implementation 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -34,17 +44,18 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	// ========================
-	// 개발 편의 기능
+	// 개발 편의 도구
 	// ========================
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// ========================
-	// 테스트 관련
+	// 테스트 도구
 	// ========================
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
+	// JUnit 5 기반 테스트 실행 설정
 	useJUnitPlatform()
 }

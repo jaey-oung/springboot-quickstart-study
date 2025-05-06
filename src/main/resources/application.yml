@@ -8,7 +8,7 @@ spring:
     name: springboot-quickstart-study
 
   main:
-    # 실행할 웹 애플리케이션 타입
+    # 웹 애플리케이션 타입 설정
     # servlet : Spring MVC (기본값, Tomcat 기반)
     # reactive : Spring WebFlux (비동기/논블로킹)
     # none : 웹 서버 없이 실행
@@ -33,6 +33,42 @@ spring:
       # width: 80
       # height: 10
 
+  datasource:
+    # H2 데이터베이스 드라이버 설정
+    driver-class-name: org.h2.Driver
+
+    # H2 DB 접속 URL
+    url: jdbc:h2:C:/Users/gusun/test
+
+    # 사용자명
+    username: sa
+
+    # 비밀번호
+    password: ""
+
+  jpa:
+    # Hibernate 동작 관련 설정
+    hibernate:
+      # 테이블 자동 생성 전략
+      # create : 기존 테이블 삭제 후 재생성
+      # update : 변경된 부분만 반영
+      # none   : DDL 생성 및 실행 안함
+      ddl-auto: update
+
+    # Spring JPA가 DDL을 생성할지 여부
+    generate-ddl: false
+
+    # 실행되는 SQL을 콘솔에 출력
+    show_sql: true
+
+    # Hibernate DB 방언 설정
+    database-platform: org.hibernate.dialect.H2Dialect
+
+    properties:
+      hibernate:
+        # SQL 문을 보기 좋게 포맷하여 출력
+        format_sql: true
+
 # ========================================
 # 로깅 설정
 # ========================================
@@ -42,12 +78,15 @@ logging:
     # 전체 애플리케이션 기본 로그 레벨
     root: info
 
-#    # com.example.springbootquickstartstudy 패키지 이하 로그 레벨
-#    com.example.springbootquickstartstudy: debug
-#
-#  file:
-#    # 로그 파일 경로 설정
-#    name: src/main/resources/ch3/logs/board_log.log
+    # Hibernate SQL 실행 로그 레벨
+    org.hibernate: info
+
+    # com.example.springbootquickstartstudy 패키지 이하 로그 레벨
+    # com.example.springbootquickstartstudy: debug
+
+    # file:
+    # 로그 파일 경로 설정
+    # name: src/main/resources/ch3/logs/board_log.log
 
 # ========================================
 # 서버 설정
@@ -59,19 +98,29 @@ server:
   port: 8080
 
 # ========================================
-# 데이터베이스 설정
+# 데이터베이스 설정 (Oracle)
 # ========================================
 
 board:
   jdbc:
+    # Oracle 드라이버 클래스
     driverClass: oracle.jdbc.driver.OracleDriver
+
+    # Oracle DB 접속 URL
     url: jdbc:oracle:thin:@localhost:1521:XE
+
+    # Oracle 사용자명
     username: JY
+
+    # Oracle 비밀번호
     password: 4001
 
 # ========================================
 # 테스트용 프로퍼티
 # ========================================
 author:
+  # 작성자 이름
   name: YJY
+
+  # 작성자 나이
   age: 2626
