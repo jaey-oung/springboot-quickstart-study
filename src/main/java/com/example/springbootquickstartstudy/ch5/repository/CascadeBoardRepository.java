@@ -1,0 +1,29 @@
+package com.example.springbootquickstartstudy.ch5.repository;
+
+import com.example.springbootquickstartstudy.ch5.domain.CascadeBoard;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+// CascadeBoard  엔티티를 위한 리포지토리 인터페이스
+// CrudRepository 상속으로 기본 CRUD 메서드 자동 제공
+public interface CascadeBoardRepository extends CrudRepository<CascadeBoard, Long> {
+    // === 쿼리 메소드 기반 ===
+
+    // 제목이 정확히 일치하는 게시글 조회
+    List<CascadeBoard> findByTitle(String searchKeyword);
+
+    // 내용에 키워드가 포함된 게시글 조회
+    List<CascadeBoard> findByContentContaining(String searchKeyword);
+
+    // 제목 또는 내용에 키워드가 포함된 게시글 조회
+    List<CascadeBoard> findByTitleContainingOrContentContaining(String title, String content);
+
+    // 제목에 키워드가 포함된 게시글을 번호 내림차순으로 정렬하여 조회
+    List<CascadeBoard> findByTitleContainingOrderBySeqDesc(String searchKeyword);
+
+    // 제목에 키워드가 포함된 게시글을 페이징 처리하여 조회
+    Page<CascadeBoard> findByTitleContaining(String searchKeyword, Pageable pageable);
+}

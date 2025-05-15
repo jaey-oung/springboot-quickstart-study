@@ -1,13 +1,7 @@
 package com.example.springbootquickstartstudy;
 
-import com.example.springbootquickstartstudy.ch5.domain.BidirectionalBoard;
-import com.example.springbootquickstartstudy.ch5.domain.BidirectionalMember;
-import com.example.springbootquickstartstudy.ch5.domain.UnidirectionalBoard;
-import com.example.springbootquickstartstudy.ch5.domain.UnidirectionalMember;
-import com.example.springbootquickstartstudy.ch5.repository.BidirectionalBoardRepository;
-import com.example.springbootquickstartstudy.ch5.repository.BidirectionalMemberRepository;
-import com.example.springbootquickstartstudy.ch5.repository.UnidirectionalMemberRepository;
-import com.example.springbootquickstartstudy.ch5.repository.UnidirectionalBoardRepository;
+import com.example.springbootquickstartstudy.ch5.domain.*;
+import com.example.springbootquickstartstudy.ch5.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +26,14 @@ public class RelationalMappingTest {
     // BidirectionalMemberRepository 주입
     @Autowired
     private BidirectionalMemberRepository bidirectionalMemberRepo;
+
+    // CascadeBoardRepository 주입
+    @Autowired
+    private CascadeBoardRepository cascadeBoardRepo;
+
+    // CascadeMemberRepository 주입
+    @Autowired
+    private CascadeMemberRepository cascadeMemberRepo;
 
     // 단방향 연관관계 저장 테스트
     @Test
@@ -136,5 +138,51 @@ public class RelationalMappingTest {
         for (BidirectionalBoard bidirectionalBoard : bidirectionalBoardList) {
             System.out.println(bidirectionalBoard.toString());
         }
+    }
+
+    // 영속성 전이 기반 연관관계 저장 테스트
+    // CascadeMember 엔티티 저장 시 관련 CascadeBoard 게시글들도 함께 저장됨
+    @Test
+    public void testCascadeInsert() {
+        // 회원 엔티티 저장
+        CascadeMember cascadeMember1 = new CascadeMember();
+        cascadeMember1.setId("member1");
+        cascadeMember1.setPassword("member111");
+        cascadeMember1.setName("둘리");
+        cascadeMember1.setRole("User");
+
+        CascadeMember cascadeMember2 = new CascadeMember();
+        cascadeMember2.setId("member2");
+        cascadeMember2.setPassword("member222");
+        cascadeMember2.setName("도우너");
+        cascadeMember2.setRole("Admin");
+
+        // 게시글 엔티티 저장
+        for (int i = 1; i <= 3; i++) {
+            CascadeBoard cascadeBoard = new CascadeBoard();
+            cascadeBoard.setCascadeMember(cascadeMember1);
+            cascadeBoard.setTitle("둘리가 등록한 게시글 " + i);
+            cascadeBoard.setContent("둘리가 등록한 게시글 내용 " + i);
+            cascadeBoard.setCreateDate(new Date());
+            cascadeBoard.setCnt(0L);
+        }
+        cascadeMemberRepo.save(cascadeMember1);
+
+        for (int i = 1; i <= 3; i++) {
+            CascadeBoard cascadeBoard = new CascadeBoard();
+            cascadeBoard.setCascadeMember(cascadeMember2);
+            cascadeBoard.setTitle("도우너가 등록한 게시글 " + i);
+            cascadeBoard.setContent("도우너가 등록한 게시글 내용 " + i);
+            cascadeBoard.setCreateDate(new Date());
+            cascadeBoard.setCnt(0L);
+        }
+        cascadeMemberRepo.save(cascadeMember2);
+    }
+
+    // 영속성 전이 기반 연관관계 삭제 테스트
+    // CascadeMember 삭제 시 관련 CascadeBoard 게시글들도 함께 삭제됨
+    @Test
+    public void testCascadeDelete() {
+        cascadeMemberRepo.deleteById("member2");
     }
 }
