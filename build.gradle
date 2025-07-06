@@ -7,6 +7,10 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+springBoot {
+	mainClass = 'com.example.springbootquickstartstudy.SpringbootQuickstartStudyApplication'
+}
+
 java {
 	toolchain {
 		// Java 21 버전으로 컴파일 설정
@@ -24,6 +28,14 @@ dependencies {
 	// 웹 애플리케이션
 	// ========================
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// ========================
+	// JSP 렌더링 관련
+	// ========================
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+	runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
 
 	// ========================
 	// JPA
@@ -64,20 +76,22 @@ dependencies {
 }
 
 // QueryDSL로 생성되는 Q타입 클래스의 출력 경로를 정의
-def querydslGenerated = layout.buildDirectory.dir("generated/querydsl").get().asFile
+def querydslGeneratedMain = layout.buildDirectory.dir("generated/querydsl/main").get().asFile
 
 sourceSets {
 	main {
 		java {
 			// 생성된 Q클래스를 Java 소스 경로에 포함시킴
-			srcDirs += querydslGenerated
+			srcDirs += querydslGeneratedMain
 		}
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
 	// Q타입 클래스가 생성될 경로 지정
-	options.generatedSourceOutputDirectory = querydslGenerated
+	if (name.contains("main")) {
+		options.generatedSourceOutputDirectory = querydslGeneratedMain
+	}
 }
 
 tasks.named('test') {

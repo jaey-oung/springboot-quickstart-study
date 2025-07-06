@@ -23,6 +23,12 @@ spring:
     # 동일한 Bean 이름이 있을 경우 덮어쓰기 허용 여부
     allow-bean-definition-overriding: true
 
+  # ViewResolver Setting
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
   banner:
     # 커스텀 텍스트 배너 파일 경로
     # location: ch1/banner/banner.txt
