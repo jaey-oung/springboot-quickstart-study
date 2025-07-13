@@ -3,6 +3,8 @@ package com.example.springbootquickstartstudy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 // 애플리케이션의 시작점 클래스
 // @SpringBootApplication은 내부에 @ComponentScan을 포함하여 지정한 패키지 이하의 클래스를 자동으로 스캔하고 빈으로 등록함
@@ -23,6 +25,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //}
 
 @SpringBootApplication(scanBasePackages = "com.example.springbootquickstartstudy.ch6")
+@EntityScan("com.example.springbootquickstartstudy.ch6.domain")
+@EnableJpaRepositories("com.example.springbootquickstartstudy.ch6.persistence")
 public class SpringbootQuickstartStudyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootQuickstartStudyApplication.class, args);
